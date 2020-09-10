@@ -1,0 +1,7 @@
+In addition to R Studio, also worth checking out RStudio Server (a web interface), and also Microsoft R Open and Microsoft R Server.  
+
+For list of keyboard shortcuts, see Help -> Keyboard Shortcuts.
+
+A primary feature of RStudio is PROJECTS, a collection of files, data, results, and graphs.  Each project is in its own working directory, and is a great way to keep organized.  Projects have built in version control capabilities with git as seen in the upper right Environment panel. 
+
+Note that projects are different from a SESSION, which refers to the objects and work kept in memory for the current usage period.
