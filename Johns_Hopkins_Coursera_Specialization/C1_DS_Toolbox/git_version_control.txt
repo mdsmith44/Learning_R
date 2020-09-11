@@ -1,0 +1,37 @@
+#Downloading Git to computer:
+
+Step 1: Sign up for GitHub account
+
+Step 2: download git
+- Download git from https://git-scm.com/downloads
+- Launch git bash command line
+
+Configure git to link with github by running following commands
+
+#At command line bash for git:
+git confit --global user.name "Matt Smith"
+
+git config --global user.email mdsmith44@gmail.com
+
+#check settings
+git config --list
+
+Step 3: To link R Studio to Git
+
+#Tools - Global Options - Git and create public key then add it to your online github profile.  Must also download Git to your machine.
+
+If there is an online git repo that we want to bring into R Studio:
+
+#To start a new repository from github repo, in RStudio do:
+File -> New Project -> Version Control, and select GitHub
+
+#To push/commit changes, the environment tab (upper right) will have a Git tab
+
+It's trickier to take an existing, unlinked RStudio project and get it into Git, but can be done.  
+- Open Git Bash
+- Navigate to directory containing project.  That is, go INTO the folder/directory for the project.  So if the project is called My_Project in the R/My_Project folder, then go INTO the My_Project folder
+- Type `git init`, then "git add ."
+- commit with "git commit -m "description""
+- Create a GitHub repo with same name as the R Project.  Make sure it does not have readme.
+- Once you create the new repo, you should see options to set up the new repo.  One of the options should be to "push an existing repository from the command line".  Copy and paste these into the git bash command line.
+- Now the RStudio project is linked to GitHub.  We can test this by opening the project and seeing the Git tab in the upper right Environment panel
