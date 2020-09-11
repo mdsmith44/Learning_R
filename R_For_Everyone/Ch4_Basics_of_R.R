@@ -19,6 +19,9 @@ j
 
 #variable names can have periods, underscores, nums
 #Though cannot START with number or underscore
+#Note that use of periods in names differs from python
+#E.g. cannot say df.name to get name field, since "df.name" is itself a valid 
+#variable name
 
 #Can remove variable with remove or rm
 rm(j)
