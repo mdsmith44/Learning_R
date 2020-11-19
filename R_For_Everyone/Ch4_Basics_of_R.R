@@ -13,7 +13,7 @@ z
 #Can also assign multiple variables at once
 x <-  y <- 4
 
-#Can assign usuign assign function
+#Can assign usign assign function
 assign("j",4)
 j
 
@@ -79,12 +79,12 @@ as.numeric(d2) #seconds since epoch
 
 
 ## Logical
-#We have TRUE adn FALSE
+#We have TRUE and FALSE
 #Also represented as 1 and 0
 TRUE*5
 FALSE*5 #0
 is.logical(TRUE)
-#T and F are shortcuts for TRUE adn FALSE
+#T and F are shortcuts for TRUE and FALSE
 #But beware as they can be overwritten as variables
 
 #Can get logicals from comparisons
