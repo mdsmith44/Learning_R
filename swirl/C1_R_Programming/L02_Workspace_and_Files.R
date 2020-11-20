@@ -3,7 +3,7 @@
 #get current working directory
 getwd()
 
-#List all objects
+#List all objects, including files, directories, and variables
 ls()
 
 #list only the FILES in current working directory

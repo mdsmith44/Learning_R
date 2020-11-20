@@ -23,7 +23,7 @@ df
 #We can give names to columns
 df <- data.frame(First=x,Second=y,Sport=q)
 df
-#Note that we don't use str for col names,
+#Note that we don't need to use str for col names,
 #though we could and it would work fine
 df <- data.frame('First'=x,Second=y,Sport=q)
 df
@@ -84,7 +84,7 @@ df[,"Sport"] #a factor vector
 #use signle bracket to get df w 1 col
 df["Sport"] #data.frame w 1 column
 #Use double bracket to get just that element
-#In this case, jsut a factor vector
+#In this case, just a factor vector
 df[["Sport"]] #factor vector. 
 #Double bracket grabs just the element
 #in this case, 
@@ -136,7 +136,7 @@ emptyList
 emptyList[[2]] <- 2
 emptyList
 
-#Can append to list with index that doesnt' exist
+#Can append to list with index that doesn't exist
 list1
 list1[[4]]=4
 list1

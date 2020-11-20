@@ -40,7 +40,7 @@ class(df2)
 ?read_delim
 
 #Turns out read_delim is faster than read_table,
-#in addition to defaulting to char adn tibbles
+#in addition to defaulting to char and tibbles
 
 #readr package also has extensions read_csv that
 #is wrapper around read_delim with delim=','

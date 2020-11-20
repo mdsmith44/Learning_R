@@ -103,13 +103,13 @@ v2
 class(v1)
 class(v2)
 
-#All operations are automatically vectorized
+#All operations are automatically vectorized (i.e. they operate element-wise)
 3*v1
 
 #Shortcut for sequence of numbers
 r <- 1:10
 r
-class(r)
+class(r) #integer vector
 #Can go backwards too
 5:0
 
@@ -136,7 +136,7 @@ v1 <-  1:10
 v1[1]
 v1[1:2]
 v1[c(1,5)]
-#Get all elements except certain indices
+#Get all elements EXCEPT certain indices
 v1[-c(5,6)]
 v1[-(5:10)]
 
@@ -167,15 +167,16 @@ factor(x=c('HS','BS','BS','HS','Masters','Doctorate'),
 #get help on any function with ?function_name
 ?c
 
-#get help on operators
+#get help on operators with quotes, such as arithmetic operators or : function
 ?`*`
+?":"
 
 #Lookup function with apropos
 apropos('mea')
 
 
 ##### Missing Data
-#NA adn NULL both used
+#NA and NULL both used
 #NA is for missing data
 z <- c(1,2,NA,7,NA,3)
 is.na(z)
@@ -185,18 +186,18 @@ mean(z)
 #Unless we set na.rm=TRUE
 mean(z,na.rm=TRUE)
 
-#NA means there's a spot with nothign in it
+#NA means there's a spot with nothing in it
 #NULL means there's no spot at all
 z <- c(1,NULL,3)
 z
-#NuLL can't be part of vector
+#NuLL can't be part of vector, it will just get ignored like it's not even there
 a <- NULL
 is.null(a)
 class(a)
 
 ##### Pipes
 #Pipes are way to feed values to a function
-#Lets use a pipe from the magrittr package
+#Lets use a pipe mechanism, %>%, imported from the magrittr package
 x <- 1:10
 library(magrittr)
 x %>% mean
