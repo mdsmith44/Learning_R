@@ -2,8 +2,8 @@
 #functionality that homogeneous vectors.  These include:
 # data.frame (e.g. spreadsheet)
 # matrix (e.g. all numbers)
-# list
-# array
+# list (sequence of various object types)
+# array 
 
 ##### data.frame
 #data.frame (df) is collection of vectors
