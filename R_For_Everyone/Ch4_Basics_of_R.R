@@ -43,7 +43,7 @@ i <- 5L
 class(i)
 #TRUE for both numeric and integer
 is.numeric(i) 
-is.integer(i)
+is.integer(i)0
 
 #R will naturally promote integer to numeric
 class(4L * 2.2)
