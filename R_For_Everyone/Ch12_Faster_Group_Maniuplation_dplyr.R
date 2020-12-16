@@ -229,6 +229,14 @@ diamonds %>%
             MedianPrice=median(price),
             AvgCarat=mean(carat))
 
+#If we want the func applied to each col, need to use
+#summarize_each
+# This will give mean of each col.  It will work, though
+#it will give a warning about having to return NA for non-
+#num cols
+diamonds %>% summarize_each(mean)
+summarize_each(diamonds,mean)
+
 
 ##### group_by
 #summarize is really most useful when used with group_by
@@ -317,6 +325,11 @@ add_html_code <- function(x) {
 }
 diamonds %>% select(price) %>% do(add_html_code(.))
 
+#Can we feed in anonymous functions?
+# diamonds %>% select(price,carat) %>%
+#   do(function(x) x$price + x$carat)
+#Hmm, doesn't quite work, since we need to call the 
+#function with a period where data should be inputted
 
 ##### databases
 #dplyr works with many database types
