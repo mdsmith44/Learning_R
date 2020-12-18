@@ -3,7 +3,7 @@
 #learn some base R plotting functionality
 
 
-### Base Graphi
+### Base Graphics
 
 
 #Load some test data from ggplot2
