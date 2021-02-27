@@ -9,7 +9,7 @@ Step 2: download git
 Configure git to link with github by running following commands
 
 #At command line bash for git:
-git confit --global user.name "Matt Smith"
+git config --global user.name "Matt Smith"
 
 git config --global user.email mdsmith44@gmail.com
 
