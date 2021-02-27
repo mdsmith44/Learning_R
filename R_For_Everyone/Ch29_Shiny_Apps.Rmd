@@ -1,0 +1,144 @@
+---
+title: "Ch29_Shiny_Apps"
+author: "Matt Smith"
+date: "1/6/2021"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Overview
+
+We can create Shiny apps from RMarkdown document by adding the tag `runtime: shiny` to the yaml header.  We can produce the Shiny document with the Knit button above, or by running the document with `rmarkdown::run('Ch29_Shiny_Apps.Rmd')` from the console.
+
+
+# UI Widgets
+
+To add UI elements, we place then in code chunks.  Lets show example with selectInput.
+
+To display the Select Input, we simply declare a line of code with selectInput() function.  Note that the choices are specified by a list.  If it's a named list (as is the case here) then the names are displayed to the user and the values are what gets returned to the server.
+
+```{r build-selector}
+selectInput(inputId='ExampleDropDown',
+            label='Please make a selection',
+            choices=list('Value 1'=1,
+                         'Value 2'=2,
+                         'Value 3'=3))
+
+```
+
+If we were to run the `selectInput(...)` code in the console, it would simply return the html code to render a select widget.
+
+So how do we access and utilize the returned value?  Turns out that Shiny keeps track of all user inputs in a named list called `input`.  This list has a an entry for each widget, where the name is the inputId of that widget, and the the value is the current user input to that widget.  Hence, for the select widget above named "ExampleDropDown", we can access it's current value with `input$ExampleDropDown`.  
+
+One way we can print the value is with renderPrint(), a Shiny render function.  
+
+```{r select-print-drop-down,echo=TRUE}
+renderPrint(input$ExampleDropDown)
+
+#Does this differ from regular print?
+#Turns out this returns error since print() is not
+#a reactive function
+#print(input$ExampleDropDown)
+```
+
+Other common inputs:
+
+```{r common-inputs,echo=FALSE}
+sliderInput(inputId='SliderSample', label='This is a slider',
+            min=0, max=10, value=5)
+
+textInput(inputId='TextSample', label='Space to enter text')
+
+checkboxInput(inputId='CheckSample', label='Single check box')
+
+checkboxGroupInput(inputId='CheckGroupSample',
+
+                   label='Multiple check boxes',
+
+                   choices=list('A', 'B', 'C'))
+
+radioButtons(inputId='RadioSample', label='Radio button',
+
+             choices=list('A', 'B', 'C'))
+
+dateInput(inputId='DateChoice', label='Date Selector')
+
+#Can we see current values of all inputs?
+#Looks like it's tricky, as keep getting reactive errors
+# for (n in names(input)) {
+#   #renderPrint(n)
+#   #renderPrint(input[[n]])
+# }
+#renderPrint(names(input))
+# for (n in names(input)) {
+#   renderPrint(n)
+# }
+renderPrint(input[[names(input)[2]]])
+
+```
+
+There are many other render functions, such as renderPrint, renderText, renderDataTable and renderPlot.  Here's example with renderDataTable which uses the DataTable JavaScript library from the htmlwidgets package we saw in Ch 28.    
+
+```{r shiny-datatable-diamonds,echo=FALSE}
+
+data(diamonds, package='ggplot2')
+renderDataTable(diamonds)
+```
+
+# Reactive Expressions
+Reactive expressions form the backbone of Shiny apps and enable their complex and powerful interactivity.  These can be tricky to grasp, but are key to building and designing effective apps.  Essentially, reactive expressions listen for and react to user inputs.
+
+We just saw above how it can be tricky to work with the reactive `input` list, which is a named list containing the names (inputId's) and updated values of all user input widgets.  For example, we can't just simply reference the `input` variable or we get an error that we can't act on reactive variable.  
+
+
+```{r text-input-output}
+#To work with input, we need a reactive context, 
+#such as a renderXX() function
+textInput(inputId='TextInput', label='Enter Text')
+#This will work:
+renderText(input$TextInput)
+#But this will result in error:
+# t <- input$TextInput
+# renderText(t)
+
+#Make variable reactive and it will (maybe) work
+t <- reactive(input$TextInput)
+renderPrint(t)
+renderText(t)
+renderPrint(input$TextInput)
+renderText(input$TextInput)
+```
+
+The reason for the error is that we created a **static** variable (`n`), and then tried to use that static variable in a ***reactive*** context within the `renderPrint` function.  
+
+All hope is not lost though.  Turns out we can save variables as reactive, and then use them and save them for later.  
+
+```{r render-date-reactive}
+library(lubridate)
+dateInput(inputId='DateChoice', label='Choose a date')
+#Without the reactive, this would throw error
+theDate <- reactive(input$DateChoice)
+#Now we can use this variable by calling it as fxn
+renderText(sprintf('%s %s, %s',
+                   month(theDate(), label=TRUE,
+                         abbr=FALSE),
+                   day(theDate()),
+                   year(theDate())))
+```
+
+Hmm, so not quite working to save variable as reactive and then use them later.  Moving on..
+
+In addition to reactive, other useful reactive programming methods are **observe** and **isolate**.  Wherease a reactive variable continues to be reactive and update its value as additional user inputs happen, observe only updates when specifically invoked, and isolate variables grab current value and don't update further (I think).  Apparently these are useful in implementing some of the functionality of building Apps, such as side effects for plots or other things.  
+
+# Server and UI
+So far we have used a single RMarkdown doc to build a simple Shiny app.  Turns out the more robust method is to build out separate UI and server components.  This is traditionally achieved by having app in a directory that contains a `ui.r` file and a `server.r` file.  
+
+To run, run `runApp('dir_name')`.  
+
+As a high level overview, the UI specifies the view for the user.  One common UI structure is to use the `shinydashboard` library, which contains useful functions such as `dashboardHeader()`, `dashboardSidebar()`, and `dashboardBody()`.  Within these elements (mainly within the Body) is where we can inject many inputs (e.g. **selectInput**, each with a unique inputId) and also various outputs with a unique outputId (e.g. plotOutput).  
+
+The Server file then uses the `shinyServer()` function to instantiate a server.  This function takes as input a function that takes in `input` and `output` (the named lists that reactively keep track of all input and output elements in the UI dashboard, based on their unique inputId and outputId) and specifies how to use any updated inputs to change the outputs. See files in first_shiny_app for example.  

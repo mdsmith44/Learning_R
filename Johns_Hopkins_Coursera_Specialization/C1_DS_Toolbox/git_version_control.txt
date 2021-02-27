@@ -16,6 +16,9 @@ git config --global user.email mdsmith44@gmail.com
 #check settings
 git config --list
 
+#If you want to switch over to another account, will have to change it over
+
+
 Step 3: To link R Studio to Git
 
 #Tools - Global Options - Git and create public key then add it to your online github profile.  Must also download Git to your machine.

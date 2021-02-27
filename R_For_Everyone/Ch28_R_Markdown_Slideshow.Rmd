@@ -1,0 +1,62 @@
+---
+title: "Ch28_R_Markdown_Slideshow"
+author: "Matt Smith"
+date: "1/5/2021"
+output: ioslides_presentation
+
+---
+
+Two common formats are ioslides (`output: ioslides_presentation` in yaml headers), and revealjs (`output: revealjs::revealjs_presentation`).  Since the revealjs one comes from revealjs package and not the rmarkdown package, we need to specify the reavealjs package.  
+
+Slides are specified by double hashtags (##).  
+
+The resulting slideshow can embed interactive graphics, though on first glance, it appears quite tricky to get the content to fit as desired.  
+
+## First Slide
+
+A list of things to cover
+
+- First Item
+
+- Second Item
+
+- Third Item
+
+
+
+## Some R Code
+
+The code below will generate some results and a plot.
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+
+## Another Slide
+
+Some more information goes here
+
+
+
+## Some Links
+
+[My Website](http://www.jaredlander.com)
+
+
+
+[R Bloggers](http://www.r-bloggers.com)
+
+## datatables
+
+Use the `DT` package to generate interactive displays of tabular data.
+
+```{r DT}
+#install.packages('DT')
+library(DT)
+data(diamonds, package='ggplot2')
+#DT package load the datatable function
+datatable(head(diamonds, 100))
+```
+
+

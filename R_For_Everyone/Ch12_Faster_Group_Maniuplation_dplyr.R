@@ -29,7 +29,7 @@ dim(head(diamonds,n=4))
 #Can get same result with chaining
 diamonds %>% head(4) %>% dim
 
-#Note that pipes effectives work "inside out" compared to
+#Note that pipes effectively work "inside out" compared to
 #previous statement.
 # Intuitively, this means apply head function to diamonds, 
 #with next arg = 4, then apply dim() to result
@@ -59,7 +59,7 @@ diamonds #will just display few rows and cols
 
 ##### select
 #lets get into functions, or verbs in grammar of data
-#select indicates what coloms to keep
+#select indicates what columns to keep
 select(diamonds,carat,price)
 
 #Can use pipes
@@ -67,7 +67,7 @@ diamonds %>% select(carat,price)
 
 #Same as basic R square bracket syntax?  Seems so
 diamonds[c('carat','price')]
-#This would also workd
+#This would also work
 diamonds[,c('carat','price')]
 
 #Feed in vector?  Sure.
@@ -97,7 +97,7 @@ diamonds %>% select(.dots=cols_to_keep)
 #Can also use one_of
 diamonds %>% select(one_of(cols_to_keep))
 #Which, as the name suggests, uses both of cols... hmmm
-#one_of has been superceded by more precise any_of
+#one_of has been superseded by more precise any_of
 #or all_of
 diamonds %>% select(all_of(cols_to_keep))
 diamonds %>% select(any_of(cols_to_keep))
@@ -219,7 +219,7 @@ diamonds2 <- diamonds %>%
 
 
 ##### Summarize
-#summarize functions return signle number from each col
+#summarize functions return single number from each col
 summarize(diamonds,mean(price))
 diamonds %>% summarize(mean(price))
 #Results in most concise and easy to understand code
@@ -245,7 +245,7 @@ summarize_each(diamonds,mean)
 #Lets get average price by cut
 diamonds %>% group_by(cut) %>%
   summarize(AvgPrice=mean(price))
-#This turns out to be more elegent and faster than base-R
+#This turns out to be more elegant and faster than base-R
 #aggregate function, and can also more easily handle
 #multiple calculations
 
@@ -262,7 +262,7 @@ diamonds %>% arrange(carat)
 #default is ascending, but can get descending
 diamonds %>% arrange(desc(carat))
 
-#Mutlilpe variables?
+#Multiple variables?
 diamonds %>% 
   select(depth,price) %>%
   arrange(desc(depth,price))
