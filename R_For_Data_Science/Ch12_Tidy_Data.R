@@ -5,7 +5,7 @@
 # In real world you may encounter non-tidy data, typically
 #due to fact that the format facilitated data entry.
 # Typically non-tidy data will have variables spread across
-#mutliple columns, or observations spread acros multiple rows.
+#mutliple columns, or observations spread across multiple rows.
 # The main tools to deal with these and make data tidy are
 #pivot_longer and pivot_wider.
 # tidyr has built in tables giving examples of nontidy data,
@@ -86,7 +86,7 @@ stocks %>%
 #> 5     3 2016    0.17
 #> 6     4 2016    2.66
 
-#copmlete() is useful took to get one row for every combo of
+#copmlete() is useful tool to get one row for every combo of
 #designated columns
 stocks %>% complete(year,qtr)
 
