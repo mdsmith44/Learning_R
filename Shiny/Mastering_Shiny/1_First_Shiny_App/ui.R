@@ -8,7 +8,9 @@ library(shiny)
 ui <- fluidPage(
   selectInput("dataset", label = "Dataset", choices = ls("package:datasets")),
   tableOutput("table"),
-  verbatimTextOutput("summary")
+  verbatimTextOutput("summary"),
+  dataTableOutput(renderDataTable({head(iris)}
+                                  ))
   
 )
 
@@ -60,7 +62,7 @@ server <- function(input, output, session) {
     dataset()
   })
 }
-#Note that we can't have non-reactive function in ther?
+#Note that we can't have non-reactive function in there?
 
 shinyApp(ui, server)
 
